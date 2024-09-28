@@ -1,5 +1,6 @@
-pynput~=1.7.7
-uvicorn~=0.30.6
-fastapi~=0.115.0
-selenium~=4.25.0
-PyAutoGUI~=0.9.54
+pynput
+uvicorn
+fastapi
+selenium
+PyAutoGUI
+qrcode_terminal
