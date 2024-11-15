@@ -55,7 +55,8 @@ async def listen_for_messages():
     global connected_clients, message_queue, message_queue_listening
     print("listening multiprocess queue")
     message_queue_listening = True
-    while True:
+    running = True
+    while running:
         try:
             try:
                 content = message_queue.get_nowait()
@@ -64,7 +65,8 @@ async def listen_for_messages():
                 pass
             if content is not None:
                 if content == "Application is shutting down...":
-                    return
+                    running = False
+                    break
                 for client in connected_clients[:]:
                     try:
                         await client.send_text(content)
@@ -74,6 +76,7 @@ async def listen_for_messages():
         except Exception as e:
             print(f"error at update_content: {str(e)}")
         await asyncio.sleep(1)
+    message_queue_listening = False
 
 
 def get_host_ip():
